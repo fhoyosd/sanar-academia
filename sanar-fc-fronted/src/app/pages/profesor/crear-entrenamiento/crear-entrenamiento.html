@@ -1,0 +1,73 @@
+<div class="container mt-4 mb-5">
+  <a routerLink="/profesor/entrenamientos" class="btn btn-secondary mb-4">
+    ← Volver
+  </a>
+
+  <h2 class="mb-4">Crear entrenamiento</h2>
+
+  <!-- Alerta de error -->
+  <div *ngIf="errorMsj" class="alert alert-danger shadow-sm mb-4">
+    {{ errorMsj }}
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body p-4">
+      <form (ngSubmit)="guardarEntrenamiento()">
+        <div class="mb-3">
+          <label class="form-label fw-bold">Fecha y hora</label>
+          <input 
+            type="datetime-local" 
+            [(ngModel)]="nuevoEntrenamiento.fecha" 
+            name="fecha" 
+            class="form-control" 
+            required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Lugar</label>
+          <input 
+            type="text" 
+            [(ngModel)]="nuevoEntrenamiento.lugar" 
+            name="lugar" 
+            class="form-control" 
+            placeholder="Ej. Cancha Sintética 1"
+            required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Categoría</label>
+          <select 
+            [(ngModel)]="nuevoEntrenamiento.categoria_id" 
+            name="categoria_id" 
+            class="form-control" 
+            required>
+            <option [ngValue]="null" disabled selected>Selecciona una categoría</option>
+            <option *ngFor="let cat of categorias" [ngValue]="cat.id">
+              {{ cat.nombre.includes('Categoría') ? cat.nombre : 'Categoría ' + cat.nombre }}
+            </option>
+          </select>
+          <small *ngIf="categorias.length === 0" class="text-muted mt-1 d-block">
+            No se encontraron categorías asignadas.
+          </small>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Actividades realizadas</label>
+          <textarea 
+            [(ngModel)]="nuevoEntrenamiento.actividades" 
+            name="actividades" 
+            rows="5" 
+            class="form-control"
+            placeholder="Detalla las rutinas, ejercicios o plan de trabajo..."></textarea>
+        </div>
+
+        <button 
+          type="submit" 
+          class="btn btn-success w-100" 
+          [disabled]="guardando || !nuevoEntrenamiento.categoria_id">
+          {{ guardando ? 'Guardando entrenamiento...' : 'Crear entrenamiento' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

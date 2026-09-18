@@ -1,0 +1,91 @@
+<!-- Botón de retorno corregido apuntando a /admin/pagos -->
+<div class="mb-3">
+  <a routerLink="/admin/pagos" class="btn btn-outline-secondary btn-sm">
+    ← Volver al control de mensualidades
+  </a>
+</div>
+
+<!-- Alertas de feedback -->
+<div *ngIf="mensajeExito" class="alert alert-success alert-dismissible fade show mb-3">
+  {{ mensajeExito }}
+</div>
+<div *ngIf="mensajeError" class="alert alert-danger alert-dismissible fade show mb-3">
+  {{ mensajeError }}
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-dark text-white">Registrar Mensualidad</div>
+      <div class="card-body">
+        <h5 class="card-title">{{ jugador.nombre || 'Cargando jugador...' }}</h5>
+        
+        <form (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label class="form-label">Mes a pagar</label>
+            <select name="mes" [(ngModel)]="nuevoPago.mes" class="form-select" required>
+              <option value="Enero 2026">Enero 2026</option>
+              <option value="Febrero 2026">Febrero 2026</option>
+              <option value="Marzo 2026">Marzo 2026</option>
+              <option value="Abril 2026">Abril 2026</option>
+              <option value="Mayo 2026">Mayo 2026</option>
+              <option value="Junio 2026">Junio 2026</option>
+              <option value="Julio 2026">Julio 2026</option>
+              <option value="Agosto 2026">Agosto 2026</option>
+              <option value="Septiembre 2026">Septiembre 2026</option>
+              <option value="Octubre 2026">Octubre 2026</option>
+              <option value="Noviembre 2026">Noviembre 2026</option>
+              <option value="Diciembre 2026">Diciembre 2026</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Monto ($)</label>
+            <input 
+              type="number" 
+              name="monto" 
+              [(ngModel)]="nuevoPago.monto" 
+              class="form-control" 
+              required>
+          </div>
+
+          <button type="submit" class="btn btn-success w-100">Confirmar Pago</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-header">Historial de Pagos</div>
+      <div class="card-body">
+        @if (historial.length > 0) {
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead>
+                <tr>
+                  <th>Mes</th>
+                  <th>Monto</th>
+                  <th>Fecha Registro</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (pago of historial; track pago.id) {
+                  <tr>
+                    <td>{{ pago.mes }}</td>
+                    <td>${{ pago.monto }}</td>
+                    <td>{{ pago.fecha_pago }}</td>
+                    <td><span class="badge bg-success">{{ pago.estado }}</span></td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        } @else {
+          <p class="text-center text-muted my-3">No hay registros de pago para este jugador.</p>
+        }
+      </div>
+    </div>
+  </div>
+</div>

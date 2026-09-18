@@ -1,0 +1,110 @@
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    
+    <!-- Botones de navegación superiores -->
+    <div class="mb-3 d-flex gap-2">
+      <a routerLink="/admin/dashboard" class="btn btn-outline-secondary btn-sm">
+        ← Volver al menu principal
+      </a>
+      <a routerLink="/admin/jugadores" class="btn btn-outline-success btn-sm">
+        ← Lista de Jugadores
+      </a>
+    </div>
+
+    <!-- Alertas de respuesta -->
+    <div *ngIf="mensajeExito" class="alert alert-success mt-2">{{ mensajeExito }}</div>
+    <div *ngIf="mensajeError" class="alert alert-danger mt-2">{{ mensajeError }}</div>
+
+    <div class="card shadow-sm">
+      <div class="card-header bg-success text-white">
+        <h5 class="mb-0">
+          <span *ngIf="isEditing">Editar</span>
+          <span *ngIf="!isEditing">Inscribir Nuevo</span> 
+          Jugador
+        </h5>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Nombre Completo</label>
+              <input 
+                type="text" 
+                name="nombre" 
+                [(ngModel)]="jugador.nombre" 
+                class="form-control" 
+                required>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Fecha de Nacimiento</label>
+              <input 
+                type="date" 
+                name="fecha_nacimiento" 
+                [(ngModel)]="jugador.fecha_nacimiento" 
+                class="form-control" 
+                required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Estatura (cm)</label>
+              <input 
+                type="number" 
+                step="0.1" 
+                name="estatura" 
+                [(ngModel)]="jugador.estatura" 
+                class="form-control" 
+                placeholder="Ej: 165">
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Peso (kg)</label>
+              <input 
+                type="number" 
+                step="0.1" 
+                name="peso" 
+                [(ngModel)]="jugador.peso" 
+                class="form-control" 
+                placeholder="Ej: 55">
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Posición</label>
+              <select name="posicion" [(ngModel)]="jugador.posicion" class="form-select">
+                <option value="Portero">Portero</option>
+                <option value="Defensa">Defensa</option>
+                <option value="Mediocampista">Mediocampista</option>
+                <option value="Delantero">Delantero</option>
+              </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Acudiente Responsable</label>
+              <select name="acudiente_id" [(ngModel)]="jugador.acudiente_id" class="form-select" required>
+                <option value="" disabled selected>Seleccione un acudiente...</option>
+                <option *ngFor="let a of acudientes" [value]="a.id">{{ a.nombre_completo }}</option>
+              </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Categoría / División</label>
+              <select name="categoria_id" [(ngModel)]="jugador.categoria_id" class="form-select" required>
+                <option value="" disabled selected>Seleccione categoría...</option>
+                <option *ngFor="let c of categorias" [value]="c.id">{{ c.nombre }}</option>
+              </select>
+            </div>
+          </div>
+
+          <hr>
+          <div class="d-flex justify-content-end gap-2">
+            <a routerLink="/admin/jugadores" class="btn btn-light border">Cancelar</a>
+            <button type="submit" class="btn btn-success">
+              <span *ngIf="isEditing">Actualizar Datos</span>
+              <span *ngIf="!isEditing">Registrar Jugador</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+<div class="container mt-4 mb-5">
+  <div class="mb-3">
+    <a routerLink="/profesor/partidos" class="btn btn-outline-secondary btn-sm">
+      ← Volver al listado
+    </a>
+  </div>
+
+  <h2>Crear Nuevo Partido</h2>
+
+  <!-- Alertas -->
+  <div *ngIf="mensajeError" class="alert alert-danger alert-dismissible fade show mt-3">
+    {{ mensajeError }}
+  </div>
+
+  <!-- Carga inicial -->
+  <div *ngIf="cargandoDatos" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <p class="text-muted mt-2 small">Cargando categorías y jugadores...</p>
+  </div>
+
+  <!-- Formulario -->
+  <div *ngIf="!cargandoDatos" class="card shadow-sm border-0 mt-4">
+    <div class="card-body p-4">
+      <form (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label small fw-bold">Equipo rival</label>
+            <input 
+              type="text" 
+              name="rival" 
+              [(ngModel)]="partido.rival" 
+              class="form-control" 
+              placeholder="Ej. Academia FC"
+              required>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label small fw-bold">Categoría</label>
+            <select name="categoria_id" [(ngModel)]="partido.categoria_id" class="form-select" required>
+              @for (categoria of categorias; track categoria.id) {
+                <option [value]="categoria.id">
+                  {{ categoria.nombre }}
+                </option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label small fw-bold">Lugar</label>
+            <input 
+              type="text" 
+              name="lugar" 
+              [(ngModel)]="partido.lugar" 
+              class="form-control" 
+              placeholder="Ej. Cancha Principal"
+              required>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="form-label small fw-bold">Fecha y hora</label>
+            <input 
+              type="datetime-local" 
+              name="fecha" 
+              [(ngModel)]="partido.fecha" 
+              class="form-control" 
+              required>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="form-label small fw-bold">Resultado inicial (Opcional)</label>
+            <input 
+              type="text" 
+              name="resultado" 
+              [(ngModel)]="partido.resultado" 
+              class="form-control" 
+              placeholder="Ej: 0-0 o déjalo vacío">
+          </div>
+        </div>
+
+        <!-- Convocatoria de Jugadores -->
+        <div class="mb-4 mt-2">
+          <label class="form-label small fw-bold d-block">Jugadores convocados</label>
+          <div class="row g-2">
+            @for (jugador of jugadores; track jugador.id) {
+              <div class="col-md-4">
+                <div class="card shadow-sm border">
+                  <div class="card-body p-2">
+                    <div class="form-check">
+                      <input 
+                        class="form-check-input" 
+                        type="checkbox" 
+                        [id]="'jugador-' + jugador.id"
+                        [checked]="partido.convocados.includes(jugador.id)"
+                        (change)="toggleJugador(jugador.id)">
+                      <label class="form-check-label w-100 cursor-pointer" [for]="'jugador-' + jugador.id">
+                        <strong>{{ jugador.nombre }}</strong>
+                        <br>
+                        <small class="text-muted">{{ jugador.posicion || 'Sin posición' }}</small>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            } @empty {
+              <div class="col-12 text-muted small py-2">
+                No hay jugadores registrados para convocar.
+              </div>
+            }
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100 py-2" [disabled]="guardando">
+          {{ guardando ? 'Registrando partido...' : 'Crear partido' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

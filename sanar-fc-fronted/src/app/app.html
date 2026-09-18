@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">
+      <i class="bi bi-patch-check-fill"></i> Sanar Academia F.C.
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        @if (isLoggedIn) {
+          @if (userRole === 'admin') {
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/dashboard">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/usuarios">Usuarios</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/jugadores">Jugadores</a>
+            </li>
+          }
+          <li class="nav-item">
+            <button class="btn nav-link text-danger" (click)="logout()">Cerrar Sesión</button>
+          </li>
+        } @else {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <!-- ¡AQUÍ SE DEJA! Esto renderizará tus vistas dinámicamente -->
+  <router-outlet></router-outlet> 
+</main>

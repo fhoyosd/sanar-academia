@@ -1,0 +1,8 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}\\backend\\venv\\Scripts\\python.exe",
+  "code-runner.executorMap": {
+    "python": "cd $dir && .\\venv\\Scripts\\python.exe -u $fileName"
+  },
+  "code-runner.clearPreviousOutput": true,
+  "code-runner.fileDirectoryAsCwd": true
+}

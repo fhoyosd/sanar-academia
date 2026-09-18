@@ -1,0 +1,118 @@
+<div class="container mt-4 mb-5">
+  <div class="mb-3">
+    <a routerLink="/profesor/jugadores" class="btn btn-outline-secondary btn-sm">
+      ← Volver al listado
+    </a>
+  </div>
+
+  <!-- Estado de carga -->
+  <div *ngIf="cargando" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <p class="text-muted mt-2 small">Cargando ficha del jugador...</p>
+  </div>
+
+  <!-- Alertas de respuesta -->
+  <div *ngIf="mensajeExito" class="alert alert-success alert-dismissible fade show mt-2">
+    {{ mensajeExito }}
+  </div>
+  <div *ngIf="mensajeError" class="alert alert-danger alert-dismissible fade show mt-2">
+    {{ mensajeError }}
+  </div>
+
+  <div *ngIf="!cargando && jugador">
+    <h2 class="mb-3">{{ jugador.nombre }}</h2>
+
+    <!-- Card Datos Básicos del Jugador -->
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <p class="mb-2"><strong>Posición:</strong> <span class="badge bg-secondary ms-1">{{ jugador.posicion || 'Sin asignar' }}</span></p>
+          </div>
+          <div class="col-md-4">
+            <p class="mb-2"><strong>Estatura:</strong> {{ jugador.estatura ? jugador.estatura + ' m' : 'N/A' }}</p>
+          </div>
+          <div class="col-md-4">
+            <p class="mb-0"><strong>Peso:</strong> {{ jugador.peso ? jugador.peso + ' kg' : 'N/A' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario para agregar observación -->
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-body">
+        <h4 class="card-title h5 mb-3 fw-bold">Nueva observación</h4>
+
+        <form (ngSubmit)="guardarObservacion()">
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Rendimiento</label>
+            <select [(ngModel)]="nuevaObservacion.rendimiento" name="rendimiento" class="form-select">
+              <option value="Excelente">Excelente</option>
+              <option value="Bueno">Bueno</option>
+              <option value="Regular">Regular</option>
+              <option value="Bajo">Bajo</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Fortalezas</label>
+            <textarea 
+              [(ngModel)]="nuevaObservacion.fortalezas" 
+              name="fortalezas" 
+              class="form-control" 
+              rows="3"
+              placeholder="Ej. Buena visión de juego, precisión en pases cortos..."></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Aspectos a mejorar</label>
+            <textarea 
+              [(ngModel)]="nuevaObservacion.aspectosMejorar" 
+              name="aspectosMejorar" 
+              class="form-control" 
+              rows="3"
+              placeholder="Ej. Control del balón bajo presión, aceleración..."></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Comentario general</label>
+            <textarea 
+              [(ngModel)]="nuevaObservacion.comentario" 
+              name="comentario" 
+              class="form-control" 
+              rows="4"
+              placeholder="Escribe un comentario detallado del desempeño..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-success">
+            Guardar observación
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Historial de Observaciones -->
+    <h3 class="h4 mt-5 mb-3">Historial de observaciones</h3>
+
+    @for (obs of observaciones; track $index) {
+      <div class="card shadow-sm border-0 mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <strong>Rendimiento:</strong> 
+            <span class="badge bg-info text-dark">{{ obs.rendimiento }}</span>
+          </div>
+          <p class="mb-1" *ngIf="obs.fortalezas"><strong>Fortalezas:</strong> {{ obs.fortalezas }}</p>
+          <p class="mb-1" *ngIf="obs.aspectosMejorar"><strong>Aspectos a mejorar:</strong> {{ obs.aspectosMejorar }}</p>
+          <p class="mb-0" *ngIf="obs.comentario"><strong>Comentario:</strong> {{ obs.comentario }}</p>
+        </div>
+      </div>
+    } @empty {
+      <div class="alert alert-light border text-muted mt-3 py-3 text-center">
+        No hay observaciones registradas para este jugador.
+      </div>
+    }
+  </div>
+</div>

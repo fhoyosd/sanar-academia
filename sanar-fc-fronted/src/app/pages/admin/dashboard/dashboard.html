@@ -1,0 +1,75 @@
+<div class="row mb-4">
+  <div class="col">
+    <h2 class="display-6">Panel de Control: <span class="text-success">Sanar Academia F.C.</span></h2>
+    <p class="text-muted">Gestión administrativa y deportiva del club.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4 mb-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header bg-dark text-white">Gestión de Personal</div>
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-3">
+          <i class="bi bi-people-fill fs-1 text-primary me-3"></i>
+          <div>
+            <h5 class="mb-0">Usuarios</h5>
+            <small class="text-muted">{{ conteo.usuarios }} registrados</small>
+          </div>
+        </div>
+        <div class="d-grid gap-2">
+          <a routerLink="/admin/usuarios" class="btn btn-sm btn-outline-primary">Ver Lista de Usuarios</a>
+          <a routerLink="/admin/crear-usuario" class="btn btn-sm btn-primary">Registrar Profesor / Acudiente</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header bg-dark text-white">Estructura Deportiva</div>
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-3">
+          <i class="bi bi-trophy-fill fs-1 text-success me-3"></i>
+          <div>
+            <h5 class="mb-0">Categorías</h5>
+            <small class="text-muted">{{ conteo.categorias }} divisiones</small>
+          </div>
+        </div>
+        <div class="d-grid gap-2">
+          <a routerLink="/admin/crear-categoria" class="btn btn-sm btn-success">Nueva Categoría</a>
+          <a routerLink="/admin/jugadores" class="btn btn-sm btn-outline-success">Ver Fichas de Jugadores</a>
+          <a routerLink="/admin/crear-jugador" class="btn btn-sm btn-success">Inscribir Nuevo Jugador</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-4">
+    <div class="card shadow-sm h-100 border-warning">
+      <div class="card-header bg-warning text-dark fw-bold">Finanzas y Mensualidades</div>
+      <div class="card-body">
+        <div class="d-flex align-items-center mb-3">
+          <i class="bi bi-credit-card-2-front fs-1 text-warning me-3"></i>
+          <div>
+            <h5 class="mb-0">Mensualidades</h5>
+            <small class="text-muted">Control de ingresos</small>
+          </div>
+        </div>
+        <div class="d-grid gap-2">
+          <a routerLink="/admin/pagos" class="btn btn-sm btn-warning">Gestionar Mensualidades</a>
+          <a routerLink="/admin/pagos/nuevo" class="btn btn-sm btn-outline-dark">Registrar Nuevo Pago</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-2">
+  <div class="col-md-12">
+    <div class="alert alert-info">
+      <i class="bi bi-info-circle-fill"></i> 
+      <strong>Tip para la feria:</strong> Como administrador, tú eres el único que puede ver el botón de <strong>Mensualidades</strong>. Los profesores no tendrán acceso a este módulo por seguridad.
+    </div>
+  </div>
+</div>

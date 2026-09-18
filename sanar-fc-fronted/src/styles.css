@@ -1,0 +1,22 @@
+:root {
+  --soccer-green: #2ecc71;
+  --soccer-dark: #27ae60;
+}
+
+body {
+  background-color: #f8f9fa;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: var(--soccer-green) !important;
+}
+
+.btn-primary {
+  background-color: var(--soccer-green);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--soccer-dark);
+}

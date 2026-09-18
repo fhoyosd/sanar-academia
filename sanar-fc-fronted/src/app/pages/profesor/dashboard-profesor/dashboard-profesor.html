@@ -1,0 +1,65 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="h2 mb-1">Panel del Profesor</h1>
+      <p class="text-muted small mb-0">Gestión de convocatorias, entrenamientos y seguimiento deportivo.</p>
+    </div>
+  </div>
+
+  <!-- Alerta de Error -->
+  <div *ngIf="mensajeError" class="alert alert-danger alert-dismissible fade show mb-4">
+    {{ mensajeError }}
+  </div>
+
+  <div class="row g-4">
+    <!-- Tarjeta Jugadores -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 border-0">
+        <div class="card-body text-center d-flex flex-column justify-content-center align-items-center p-4">
+          <div class="bg-primary-subtle text-primary rounded-circle p-3 mb-3">
+            <i class="bi bi-people-fill fs-3"></i>
+          </div>
+          <h3 class="h4">Jugadores</h3>
+          <p class="text-muted small">
+            Consulta y evalúa a los <strong>{{ jugadores.length }}</strong> deportistas asignados a tus <strong>{{ categorias.length }}</strong> categorías.
+          </p>
+          <a routerLink="/profesor/jugadores" class="btn btn-primary mt-auto w-100">
+            Ver jugadores
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta Partidos -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 border-0">
+        <div class="card-body text-center d-flex flex-column justify-content-center align-items-center p-4">
+          <div class="bg-success-subtle text-success rounded-circle p-3 mb-3">
+            <i class="bi bi-trophy-fill fs-3"></i>
+          </div>
+          <h3 class="h4">Partidos</h3>
+          <p class="text-muted small">Revisa el historial, registra convocatorias y carga estadísticas de partidos.</p>
+          <a routerLink="/profesor/partidos" class="btn btn-success mt-auto w-100">
+            Ver partidos
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tarjeta Entrenamientos -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 border-0">
+        <div class="card-body text-center d-flex flex-column justify-content-center align-items-center p-4">
+          <div class="bg-dark-subtle text-dark rounded-circle p-3 mb-3">
+            <i class="bi bi-calendar-check-fill fs-3"></i>
+          </div>
+          <h3 class="h4">Entrenamientos</h3>
+          <p class="text-muted small">Planifica actividades, registra horarios y toma asistencia de tu plantilla.</p>
+          <a routerLink="/profesor/entrenamientos" class="btn btn-dark mt-auto w-100">
+            Ver entrenamientos
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

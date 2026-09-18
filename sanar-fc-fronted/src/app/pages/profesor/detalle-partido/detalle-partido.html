@@ -1,0 +1,86 @@
+<div class="container mt-4 mb-5">
+  <a routerLink="/profesor/partidos" class="btn btn-secondary btn-sm mb-3">
+    ← Volver al listado
+  </a>
+
+  <!-- Carga -->
+  <div *ngIf="cargando()" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2 text-muted">Cargando datos...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="errorMsj()" class="alert alert-danger">
+    {{ errorMsj() }}
+  </div>
+
+  <!-- Vista principal -->
+  <div *ngIf="!cargando() && partido()">
+    <h2>Partido vs {{ partido().rival }}</h2>
+
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <p class="mb-1"><strong>Rival:</strong> {{ partido().rival }}</p>
+        <p class="mb-1"><strong>Resultado:</strong> {{ partido().resultado }}</p>
+        <p class="mb-1"><strong>Lugar:</strong> {{ partido().lugar }}</p>
+        <p class="mb-0"><strong>Fecha:</strong> {{ partido().fecha }}</p>
+      </div>
+    </div>
+
+    <h3>Jugadores convocados</h3>
+
+    <div class="row mt-3">
+      <div class="col-md-6 mb-3" *ngFor="let j of jugadoresStats()">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">{{ j.nombre }}</h5>
+            <p class="text-muted small mb-3">{{ j.posicion }}</p>
+
+            <form (ngSubmit)="guardar(j)">
+              <div class="form-check mb-3">
+                <input 
+                  type="checkbox" 
+                  class="form-check-input" 
+                  [id]="'asist-' + j.jugador_id" 
+                  [(ngModel)]="j.asistencia" 
+                  [name]="'asist-' + j.jugador_id">
+                <label class="form-check-label" [for]="'asist-' + j.jugador_id">Asistió</label>
+              </div>
+
+              <div class="row g-2">
+                <div class="col-4">
+                  <label class="small">Goles</label>
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="j.goles" [name]="'goles-' + j.jugador_id" min="0">
+                </div>
+                <div class="col-4">
+                  <label class="small">Asistencias</label>
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="j.asistencias" [name]="'asistencias-' + j.jugador_id" min="0">
+                </div>
+                <div class="col-4">
+                  <label class="small">Pases</label>
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="j.pases" [name]="'pases-' + j.jugador_id" min="0">
+                </div>
+                <div class="col-6 mt-2">
+                  <label class="small">Amarillas</label>
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="j.amarillas" [name]="'amarillas-' + j.jugador_id" min="0">
+                </div>
+                <div class="col-6 mt-2">
+                  <label class="small">Rojas</label>
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="j.rojas" [name]="'rojas-' + j.jugador_id" min="0">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-success btn-sm w-100 mt-3" [disabled]="j.guardando">
+                {{ j.guardando ? 'Guardando...' : 'Guardar Estadísticas' }}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="jugadoresStats().length === 0" class="col-12 text-muted">
+        No hay jugadores convocados para este partido.
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="container mt-4 mb-5 p-3">
+  <button (click)="volver()" class="btn btn-secondary mb-4">
+    ← Volver
+  </button>
+
+  <h2 class="mb-4">Detalle entrenamiento</h2>
+
+  @if (errorMsj) {
+    <div class="alert alert-danger shadow-sm mb-4">
+      {{ errorMsj }}
+    </div>
+  }
+
+  @if (cargando) {
+    <div class="text-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="text-muted mt-2">Cargando datos del entrenamiento...</p>
+    </div>
+  } @else if (entrenamiento) {
+
+    <div class="card shadow-sm mb-5">
+      <div class="card-body">
+        <h4 class="mb-3">Información del entrenamiento</h4>
+        <p><strong>Lugar:</strong> {{ entrenamiento?.lugar || 'No especificado' }}</p>
+        <p><strong>Fecha:</strong> {{ entrenamiento?.fecha_hora || 'No especificada' }}</p>
+        <p><strong>Actividades:</strong></p>
+        <div class="alert alert-light border">
+          {{ entrenamiento?.actividades || 'Sin actividades registradas.' }}
+        </div>
+      </div>
+    </div>
+
+    <h3 class="mb-4">Jugadores de la categoría</h3>
+
+    <div class="row">
+      @for (jugador of jugadores; track jugador?.id || $index) {
+        @if (jugador) {
+          <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+              <div class="card-body">
+                <h4>{{ jugador.nombre || 'Jugador sin nombre' }}</h4>
+                <p class="mb-1"><strong>Posición:</strong> {{ jugador.posicion || 'Sin posición' }}</p>
+                <p class="mb-1"><strong>Estatura:</strong> {{ jugador.estatura || 0 }} m</p>
+                <p class="mb-1"><strong>Peso:</strong> {{ jugador.peso || 0 }} kg</p>
+
+                <hr>
+
+                @if (!jugador.registrado) {
+                  <form (submit)="$event.preventDefault(); guardarAsistencia(jugador)">
+                    <div class="form-check mb-3">
+                      <input 
+                        class="form-check-input" 
+                        type="checkbox" 
+                        [id]="'asistencia-' + jugador.id"
+                        [(ngModel)]="jugador.asistio" 
+                        name="asistencia-{{jugador.id}}">
+                      <label class="form-check-label" [for]="'asistencia-' + jugador.id">
+                        Asistió al entrenamiento
+                      </label>
+                    </div>
+
+                    <button 
+                      type="submit" 
+                      class="btn btn-success w-100"
+                      [disabled]="guardandoMap[jugador.id]">
+                      {{ guardandoMap[jugador.id] ? 'Guardando...' : 'Guardar asistencia' }}
+                    </button>
+                  </form>
+                } @else {
+                  <div class="alert alert-success mt-3 mb-0 py-2">
+                    ✓ Asistencia registrada
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      } @empty {
+        <div class="col-12 text-muted">
+          No hay jugadores registrados en esta categoría.
+        </div>
+      }
+    </div>
+
+    <hr class="mt-5 mb-4">
+
+    <h3 class="mb-4">Registro de asistencias</h3>
+
+    <div class="row">
+      @for (asistencia of asistencias; track asistencia?.jugador_id || $index) {
+        @if (asistencia) {
+          <div class="col-md-6 mb-4">
+            <div class="card border-success shadow-sm">
+              <div class="card-body">
+                <h4 class="text-success">{{ asistencia.jugador?.nombre || 'Jugador' }}</h4>
+                <p class="mb-1"><strong>Posición:</strong> {{ asistencia.jugador?.posicion || 'N/A' }}</p>
+                <p class="mb-0">
+                  <strong>Estado:</strong> 
+                  @if (asistencia.estado === 'asistio') {
+                    <span class="badge bg-success ms-1">Asistió</span>
+                  } @else {
+                    <span class="badge bg-danger ms-1">No asistió</span>
+                  }
+                </p>
+              </div>
+            </div>
+          </div>
+        }
+      } @empty {
+        <div class="col-12 text-muted">
+          Aún no hay registros de asistencia guardados para este entrenamiento.
+        </div>
+      }
+    </div>
+
+  } @else {
+    <div class="alert alert-warning shadow-sm mt-3">
+      No se encontraron datos para el entrenamiento solicitado.
+    </div>
+  }
+</div>

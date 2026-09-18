@@ -1,0 +1,74 @@
+<div class="mb-3">
+  <a routerLink="/admin/dashboard" class="btn btn-outline-secondary btn-sm">
+    ← Volver al menu principal
+  </a>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div>
+    <h2 class="mb-1">Fichas de Jugadores</h2>
+    <p class="text-muted small mb-0">Gestión general e inscripción de deportistas.</p>
+  </div>
+  <a routerLink="/admin/crear-jugador" class="btn btn-success">
+    Inscribir Jugador
+  </a>
+</div>
+
+<!-- Alertas de respuesta -->
+<div *ngIf="mensajeExito" class="alert alert-success alert-dismissible fade show mt-2">
+  {{ mensajeExito }}
+</div>
+<div *ngIf="mensajeError" class="alert alert-danger alert-dismissible fade show mt-2">
+  {{ mensajeError }}
+</div>
+
+<div class="card shadow-sm border-0">
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="ps-3">Nombre</th>
+            <th>Estatura / Peso</th>
+            <th>Posición</th>
+            <th class="text-end pe-3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Iteración de jugadores -->
+          <tr *ngFor="let j of jugadores">
+            <td class="ps-3">
+              <strong>{{ j.nombre }}</strong>
+            </td>
+            <td>
+              <span class="text-secondary">
+                {{ j.estatura ? j.estatura + ' m' : 'N/A' }} / 
+                {{ j.peso ? j.peso + ' kg' : 'N/A' }}
+              </span>
+            </td>
+            <td>
+              <span class="badge bg-secondary">{{ j.posicion || 'Sin Posición' }}</span>
+            </td>
+            <td class="text-end pe-3">
+              <div class="btn-group btn-group-sm">
+                <a [routerLink]="['/admin/editar-jugador', j.id]" class="btn btn-info text-white me-1">
+                  Editar
+                </a>
+                <button (click)="eliminarJugador(j.id)" class="btn btn-outline-danger">
+                  Eliminar
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Fila por si la lista viene vacía -->
+          <tr *ngIf="!jugadores || jugadores.length === 0">
+            <td colspan="4" class="text-center text-muted py-4">
+              No hay jugadores registrados.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

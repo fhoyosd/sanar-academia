@@ -1,0 +1,60 @@
+<div class="container mt-4">
+  <div class="mb-3 d-flex gap-2">
+    <a routerLink="/admin/dashboard" class="btn btn-outline-secondary btn-sm">
+      ← Volver al menu principal
+    </a>
+    <a routerLink="/admin/usuarios" class="btn btn-outline-primary btn-sm">
+      ← Lista de Usuarios
+    </a>
+  </div>
+
+  <h2>Crear Nuevo Usuario</h2>
+
+  <!-- Alertas de éxito o error -->
+  <div *ngIf="mensajeExito" class="alert alert-success">{{ mensajeExito }}</div>
+  <div *ngIf="mensajeError" class="alert alert-danger">{{ mensajeError }}</div>
+
+  <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+    <div class="mb-3">
+      <label class="form-label">Nombre Completo</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        name="nombre" 
+        [(ngModel)]="usuario.nombre" 
+        required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Nombre de Usuario</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        name="username" 
+        [(ngModel)]="usuario.username" 
+        required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Contraseña</label>
+      <input 
+        type="password" 
+        class="form-control" 
+        name="password" 
+        [(ngModel)]="usuario.password" 
+        required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Rol</label>
+      <select class="form-select" name="rol" [(ngModel)]="usuario.rol">
+        <option value="profesor">Profesor</option>
+        <option value="acudiente">Acudiente</option>
+        <option value="admin">Administrador</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary me-2">Guardar Usuario</button>
+    <a routerLink="/admin/usuarios" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>

@@ -1,0 +1,46 @@
+<div class="mb-3">
+  <a routerLink="/admin/dashboard" class="btn btn-outline-secondary btn-sm">
+    ← Volver al menu principal
+  </a>
+</div>
+
+<div class="mb-4">
+  <h2>Control de Mensualidades</h2>
+  <p class="text-muted">Selecciona un jugador para gestionar sus pagos.</p>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>Jugador</th>
+            <th>Categoría</th>
+            <th>Acudiente</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (j of jugadores; track j.id) {
+            <tr>
+              <td><strong>{{ j.nombre }}</strong></td>
+              <td>{{ j.categoria }}</td>
+              <td>{{ j.acudiente }}</td>
+              <td>
+                <!-- Le pasamos el ID del jugador al routerLink -->
+                <a [routerLink]="['/admin/pago-detalle', j.id]" class="btn btn-sm btn-warning">
+                  <i class="bi bi-cash-stack"></i> Gestionar Pagos
+                </a>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="text-center text-muted">No hay jugadores registrados.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
