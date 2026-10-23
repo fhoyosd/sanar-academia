@@ -10,6 +10,7 @@ import { ListarUsuariosComponent } from './pages/admin/listar-usuarios/listar-us
 import { EditarJugadorComponent } from './pages/admin/editar-jugador/editar-jugador';
 import { PagoDetalleComponent } from './pages/admin/pago-detalle/pago-detalle';
 import { PagosGeneralComponent } from './pages/admin/pagos-general/pagos-general';
+import { RegistrarPagoComponent } from './pages/admin/registrar-pago/registrar-pago';
 import { DashboardProfesorComponent } from './pages/profesor/dashboard-profesor/dashboard-profesor';
 import { CrearPartidoComponent } from './pages/profesor/crear-partido/crear-partido';
 import { PartidosComponent } from './pages/profesor/partidos/partidos';
@@ -33,6 +34,7 @@ export const routes: Routes = [
   { path: 'admin/editar-jugador/:id', component: EditarJugadorComponent },
   { path: 'admin/jugadores', component: ListarJugadoresComponent },
   { path: 'admin/usuarios', component: ListarUsuariosComponent },
+  { path: 'admin/pagos/nuevo', component: RegistrarPagoComponent },
   { path: 'admin/pagos', component: PagosGeneralComponent },
   { path: 'admin/pago-detalle/:id', component: PagoDetalleComponent },
   { path: 'admin/editar-usuario/:id', component: EditarUsuarioComponent },
