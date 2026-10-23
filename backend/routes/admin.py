@@ -232,9 +232,18 @@ def registrar_pago():
         fecha_str = data.get('fecha_pago')
         fecha_dt = datetime.strptime(fecha_str, '%Y-%m-%d').date() if fecha_str else datetime.now().date()
 
+        if not data.get('jugador_id'):
+            return jsonify({'error': 'Debes seleccionar un jugador'}), 400
+        if not (data.get('motivo') or '').strip():
+            return jsonify({'error': 'El motivo del pago es obligatorio'}), 400
+        if float(data.get('monto') or 0) <= 0:
+            return jsonify({'error': 'El monto debe ser mayor a 0'}), 400
+
         nuevo_pago = Pago(
             monto=float(data.get('monto')),
             fecha_pago=fecha_dt,
+            mes=data.get('motivo').strip(),  # el motivo se guarda en la columna existente 'mes'
+            estado='Completado',
             jugador_id=int(data.get('jugador_id'))
         )
 
@@ -260,6 +269,7 @@ def obtener_pagos_jugador(id):
         for p in pagos:
             historial.append({
                 'id': p.id,
+                'mes': p.mes or 'Sin motivo',
                 'monto': p.monto,
                 'fecha_pago': p.fecha_pago.strftime('%Y-%m-%d') if p.fecha_pago else None,
                 'concepto': getattr(p, 'concepto', 'Mensualidad'),
