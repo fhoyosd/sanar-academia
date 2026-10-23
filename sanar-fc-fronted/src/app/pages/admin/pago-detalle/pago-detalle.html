@@ -14,48 +14,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-4">
-    <div class="card shadow-sm mb-4">
-      <div class="card-header bg-dark text-white">Registrar Mensualidad</div>
-      <div class="card-body">
-        <h5 class="card-title">{{ jugador.nombre || 'Cargando jugador...' }}</h5>
-        
-        <form (ngSubmit)="onSubmit()">
-          <div class="mb-3">
-            <label class="form-label">Mes a pagar</label>
-            <select name="mes" [(ngModel)]="nuevoPago.mes" class="form-select" required>
-              <option value="Enero 2026">Enero 2026</option>
-              <option value="Febrero 2026">Febrero 2026</option>
-              <option value="Marzo 2026">Marzo 2026</option>
-              <option value="Abril 2026">Abril 2026</option>
-              <option value="Mayo 2026">Mayo 2026</option>
-              <option value="Junio 2026">Junio 2026</option>
-              <option value="Julio 2026">Julio 2026</option>
-              <option value="Agosto 2026">Agosto 2026</option>
-              <option value="Septiembre 2026">Septiembre 2026</option>
-              <option value="Octubre 2026">Octubre 2026</option>
-              <option value="Noviembre 2026">Noviembre 2026</option>
-              <option value="Diciembre 2026">Diciembre 2026</option>
-            </select>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Monto ($)</label>
-            <input 
-              type="number" 
-              name="monto" 
-              [(ngModel)]="nuevoPago.monto" 
-              class="form-control" 
-              required>
-          </div>
-
-          <button type="submit" class="btn btn-success w-100">Confirmar Pago</button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-8">
+  <div class="col-12">
     <div class="card shadow-sm">
       <div class="card-header">Historial de Pagos</div>
       <div class="card-body">
@@ -64,7 +23,7 @@
             <table class="table align-middle">
               <thead>
                 <tr>
-                  <th>Mes</th>
+                  <th>Motivo</th>
                   <th>Monto</th>
                   <th>Fecha Registro</th>
                   <th>Estado</th>
