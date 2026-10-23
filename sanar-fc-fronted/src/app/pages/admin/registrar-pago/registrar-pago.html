@@ -1,0 +1,105 @@
+<div class="row justify-content-center">
+  <div class="col-md-6">
+
+    <div class="mb-3">
+      <a routerLink="/admin/dashboard" class="btn btn-outline-secondary btn-sm">
+        ← Volver al menu principal
+      </a>
+    </div>
+
+    <div *ngIf="mensajeExito" class="alert alert-success">{{ mensajeExito }}</div>
+    <div *ngIf="mensajeError" class="alert alert-danger">{{ mensajeError }}</div>
+
+    <div class="card shadow-sm">
+      <div class="card-header bg-warning text-dark">
+        <h5 class="mb-0">Registrar Nuevo Pago</h5>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()">
+
+          <div class="mb-3">
+            <label class="form-label">Nombre del jugador</label>
+            <select
+              name="jugador_id"
+              [(ngModel)]="pago.jugador_id"
+              (ngModelChange)="onJugadorChange()"
+              class="form-select"
+              required>
+              <option value="" disabled>Selecciona un jugador</option>
+              @for (j of jugadores; track j.id) {
+                <option [value]="j.id">{{ j.nombre }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Categoría</label>
+            <input
+              type="text"
+              name="categoria"
+              [(ngModel)]="pago.categoria"
+              class="form-control"
+              placeholder="Se completa al elegir el jugador"
+              readonly>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Motivo de pago</label>
+            <select name="motivo" [(ngModel)]="pago.motivo" class="form-select" required>
+              @for (m of motivos; track m) {
+                <option [value]="m">{{ m }}</option>
+              }
+            </select>
+            @if (pago.motivo === 'Mensualidad') {
+              <div class="row mt-2">
+                <div class="col-7">
+                  <label class="form-label mb-1">Mes</label>
+                  <select name="mes" [(ngModel)]="pago.mes" class="form-select" required>
+                    @for (m of meses; track m) {
+                      <option [value]="m">{{ m }}</option>
+                    }
+                  </select>
+                </div>
+                <div class="col-5">
+                  <label class="form-label mb-1">Año</label>
+                  <select name="anio" [(ngModel)]="pago.anio" class="form-select" required>
+                    @for (a of anios; track a) {
+                      <option [value]="a">{{ a }}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+            }
+            @if (pago.motivo === 'Otro') {
+              <input
+                type="text"
+                name="motivo_otro"
+                [(ngModel)]="pago.motivo_otro"
+                class="form-control mt-2"
+                maxlength="50"
+                placeholder="Escribe el motivo del pago"
+                required>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Monto a pagar ($)</label>
+            <input
+              type="number"
+              name="monto"
+              [(ngModel)]="pago.monto"
+              class="form-control"
+              min="1"
+              placeholder="Ej: 50000"
+              required>
+          </div>
+
+          <button type="submit" class="btn btn-success w-100" [disabled]="guardando">
+            {{ guardando ? 'Guardando...' : 'Confirmar Pago' }}
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
