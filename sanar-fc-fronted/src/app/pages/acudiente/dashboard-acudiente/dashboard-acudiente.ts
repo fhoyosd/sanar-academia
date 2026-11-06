@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AcudienteService } from '../../../services/acudiente';
@@ -12,6 +12,7 @@ import { AcudienteService } from '../../../services/acudiente';
 })
 export class DashboardAcudienteComponent implements OnInit {
   private acudienteService = inject(AcudienteService);
+  private cdr = inject(ChangeDetectorRef);
   datos: any = null;
   cargando = true;
   error = '';
