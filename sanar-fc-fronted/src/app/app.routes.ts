@@ -53,7 +53,6 @@ export const routes: Routes = [
   { path: 'profesor/jugador-detalle/:id', component: DetalleJugadorComponent },
   { path: 'profesor/entrenamientos', component: EntrenamientosComponent },
   { path: 'profesor/entrenamiento-detalle/:id', component: DetalleEntrenamientoComponent },
-  { path: 'profesor/crear-entrenamiento', component: CrearEntrenamientoComponent }
-
+  { path: 'profesor/crear-entrenamiento', component: CrearEntrenamientoComponent },
   { path: '**', redirectTo: '' }
 ];
