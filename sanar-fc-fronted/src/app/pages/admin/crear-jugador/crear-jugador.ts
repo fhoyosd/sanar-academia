@@ -39,13 +39,20 @@ export class CrearJugadorComponent implements OnInit {
   cargarSelects(): void {
     this.http.get<any[]>('http://127.0.0.1:5000/api/admin/acudientes')
       .subscribe({
-        next: (data) => this.acudientes = data,
+        next: (data) => {
+          this.acudientes = data;
+          console.log('ACUDIENTES RECIBIDOS:', data);
+          console.log('ACUDIENTE ID 18:', data.find(a => Number(a.id) === 18));
+        },
         error: (err) => console.error('Error al cargar acudientes:', err)
       });
 
     this.http.get<any[]>('http://127.0.0.1:5000/api/admin/categorias')
       .subscribe({
-        next: (data) => this.categorias = data,
+        next: (data) => {
+          this.categorias = data;
+          console.log('CATEGORÍAS RECIBIDAS:', data);
+        },
         error: (err) => console.error('Error al cargar categorías:', err)
       });
   }
@@ -53,6 +60,9 @@ export class CrearJugadorComponent implements OnInit {
   onSubmit(): void {
     this.mensajeExito = '';
     this.mensajeError = '';
+
+    console.log('DATOS QUE SE ENVIARÁN:', this.jugador);
+    console.log('ACUDIENTE SELECCIONADO:', this.jugador.acudiente_id);
 
     this.http.post('http://127.0.0.1:5000/api/admin/jugadores/nuevo', this.jugador)
       .subscribe({
