@@ -1,0 +1,120 @@
+<div class="container-fluid py-4 parent-dashboard">
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+      <span class="text-success fw-semibold small text-uppercase">Sanar Academia F.C.</span>
+      <h1 class="h2 mb-1">Panel de acudiente</h1>
+      <p class="text-muted mb-0">Bienvenido, {{ datos?.acudiente?.nombre || 'acudiente' }}. Aquí puedes seguir el proceso deportivo de tus hijos.</p>
+    </div>
+    <div class="parent-mark"><i class="bi bi-shield-check"></i><span>Portal familiar</span></div>
+  </div>
+
+  <div *ngIf="cargando" class="text-center py-5">
+    <div class="spinner-border text-success" role="status"></div>
+    <p class="text-muted mt-3 mb-0">Cargando tu información...</p>
+  </div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <ng-container *ngIf="!cargando && datos">
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-xl-3">
+        <div class="summary-card"><div class="summary-icon blue"><i class="bi bi-people-fill"></i></div><div><span>Mis hijos</span><strong>{{ datos.resumen.estudiantes }}</strong></div></div>
+      </div>
+      <div class="col-6 col-xl-3">
+        <div class="summary-card"><div class="summary-icon green"><i class="bi bi-calendar-check"></i></div><div><span>Registros de asistencia</span><strong>{{ datos.resumen.asistencias }}</strong></div></div>
+      </div>
+      <div class="col-6 col-xl-3">
+        <div class="summary-card"><div class="summary-icon amber"><i class="bi bi-trophy"></i></div><div><span>Convocatorias</span><strong>{{ datos.resumen.convocatorias }}</strong></div></div>
+      </div>
+      <div class="col-6 col-xl-3">
+        <div class="summary-card"><div class="summary-icon red"><i class="bi bi-wallet2"></i></div><div><span>Pagos pendientes</span><strong>{{ datos.resumen.pagos_pendientes }}</strong></div></div>
+      </div>
+    </div>
+
+    <div class="dashboard-nav d-flex flex-wrap gap-2 mb-4">
+      <button class="btn" [class.btn-success]="seccion==='inicio'" [class.btn-outline-secondary]="seccion!=='inicio'" (click)="cambiarSeccion('inicio')"><i class="bi bi-house me-1"></i>Resumen</button>
+      <button class="btn" [class.btn-success]="seccion==='hijos'" [class.btn-outline-secondary]="seccion!=='hijos'" (click)="cambiarSeccion('hijos')"><i class="bi bi-people me-1"></i>Mis hijos</button>
+      <button class="btn" [class.btn-success]="seccion==='deportivo'" [class.btn-outline-secondary]="seccion!=='deportivo'" (click)="cambiarSeccion('deportivo')"><i class="bi bi-activity me-1"></i>Seguimiento deportivo</button>
+      <button class="btn" [class.btn-success]="seccion==='calendario'" [class.btn-outline-secondary]="seccion!=='calendario'" (click)="cambiarSeccion('calendario')"><i class="bi bi-calendar3 me-1"></i>Calendario</button>
+      <button class="btn" [class.btn-success]="seccion==='pagos'" [class.btn-outline-secondary]="seccion!=='pagos'" (click)="cambiarSeccion('pagos')"><i class="bi bi-credit-card me-1"></i>Pagos</button>
+      <button class="btn" [class.btn-success]="seccion==='avisos'" [class.btn-outline-secondary]="seccion!=='avisos'" (click)="cambiarSeccion('avisos')"><i class="bi bi-bell me-1"></i>Avisos</button>
+    </div>
+
+    <section *ngIf="seccion==='inicio'">
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <div class="content-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h5 mb-0">Mis deportistas</h2><button class="btn btn-sm btn-outline-success" (click)="cambiarSeccion('hijos')">Ver todos</button></div>
+            <div *ngIf="!datos.hijos.length" class="empty-state">Aún no hay estudiantes asociados a tu cuenta.</div>
+            <div *ngFor="let hijo of datos.hijos" class="child-row">
+              <div class="child-avatar"><i class="bi bi-person-fill"></i></div>
+              <div class="flex-grow-1"><strong>{{ hijo.nombre }}</strong><div class="small text-muted">{{ hijo.categoria }} · {{ hijo.edad }} años · {{ hijo.posicion }}</div></div>
+              <span class="badge text-bg-success">Activo</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="content-card h-100">
+            <h2 class="h5 mb-3">Próximas actividades</h2>
+            <div *ngIf="!datos.eventos.length" class="empty-state">No hay actividades programadas para las categorías de tus hijos.</div>
+            <div *ngFor="let evento of datos.eventos.slice(0,4)" class="activity-row">
+              <div class="activity-date"><strong>{{ evento.fecha | date:'dd' }}</strong><span>{{ evento.fecha | date:'MMM' }}</span></div>
+              <div><strong class="text-capitalize">{{ evento.tipo }}</strong><div class="small text-muted">{{ evento.lugar }} · {{ evento.categoria }}</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-card mt-4">
+        <h2 class="h5 mb-3">Últimos avisos</h2>
+        <div *ngIf="!datos.avisos.length" class="empty-state">No hay avisos nuevos.</div>
+        <div *ngFor="let aviso of datos.avisos.slice(0,3)" class="notice-row"><i class="bi bi-megaphone text-success"></i><div><strong>{{ aviso.titulo }}</strong><p class="small text-muted mb-1">{{ aviso.mensaje }}</p><small class="text-muted">{{ aviso.fecha | date:'medium' }}</small></div></div>
+      </div>
+    </section>
+
+    <section *ngIf="seccion==='hijos'">
+      <div class="content-card"><h2 class="h5 mb-3">Estudiantes vinculados a mi cuenta</h2>
+        <div *ngIf="!datos.hijos.length" class="empty-state">No tienes estudiantes vinculados actualmente.</div>
+        <div class="row g-3"><div class="col-md-6 col-xl-4" *ngFor="let hijo of datos.hijos"><div class="child-card"><div class="child-avatar large"><i class="bi bi-person-fill"></i></div><h3 class="h6 mt-3 mb-1">{{ hijo.nombre }}</h3><p class="text-muted small mb-1">{{ hijo.categoria }}</p><p class="small mb-0">{{ hijo.edad }} años · {{ hijo.posicion }}</p></div></div></div>
+      </div>
+    </section>
+
+    <section *ngIf="seccion==='deportivo'">
+      <div class="content-card mb-4"><h2 class="h5 mb-3">Historial de asistencia</h2>
+        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Estudiante</th><th>Actividad</th><th>Fecha</th><th>Estado</th></tr></thead><tbody>
+          <tr *ngFor="let a of datos.asistencias"><td>{{ a.jugador }}</td><td class="text-capitalize">{{ a.tipo }}</td><td>{{ a.fecha | date:'mediumDate' }}</td><td><span class="badge" [ngClass]="'text-bg-'+estadoClase(a.estado)">{{ a.estado }}</span></td></tr>
+          <tr *ngIf="!datos.asistencias.length"><td colspan="4" class="text-center text-muted py-4">No hay registros de asistencia.</td></tr>
+        </tbody></table></div>
+      </div>
+      <div class="content-card mb-4"><h2 class="h5 mb-3">Convocatorias a partidos</h2>
+        <div *ngFor="let partido of datos.convocatorias" class="activity-row"><div class="activity-date"><i class="bi bi-trophy"></i></div><div class="flex-grow-1"><strong>{{ partido.rival }}</strong><div class="small text-muted">{{ partido.fecha | date:'medium' }} · {{ partido.lugar }}</div><small class="text-success">Convocado: {{ partido.convocados.join(', ') }}</small></div></div>
+        <div *ngIf="!datos.convocatorias.length" class="empty-state">No hay convocatorias registradas para tus hijos.</div>
+      </div>
+      <div class="content-card"><h2 class="h5 mb-3">Observaciones y desempeño</h2>
+        <div *ngFor="let o of datos.observaciones" class="notice-row"><i class="bi bi-clipboard2-pulse text-success"></i><div><strong>{{ o.jugador }}</strong><p class="mb-1">{{ o.comentario }}</p><div class="small text-muted">Fortalezas: {{ o.fortalezas || 'Sin registro' }} · Por mejorar: {{ o.aspectos_mejorar || 'Sin registro' }}</div><span class="badge text-bg-info mt-2">{{ o.rendimiento || 'Sin evaluación cualitativa' }}</span></div></div>
+        <div *ngIf="!datos.observaciones.length" class="empty-state">Aún no hay evaluaciones registradas.</div>
+      </div>
+    </section>
+
+    <section *ngIf="seccion==='calendario'">
+      <div class="content-card"><h2 class="h5 mb-3">Calendario de actividades</h2>
+        <div *ngFor="let evento of datos.eventos" class="activity-row"><div class="activity-date"><strong>{{ evento.fecha | date:'dd' }}</strong><span>{{ evento.fecha | date:'MMM' }}</span></div><div><strong class="text-capitalize">{{ evento.tipo }}</strong><div class="small text-muted">{{ evento.fecha | date:'fullDate' }} · {{ evento.lugar }}</div><div class="small">{{ evento.descripcion }}</div><small class="text-muted">{{ evento.categoria }}</small></div></div>
+        <div *ngIf="!datos.eventos.length" class="empty-state">No hay actividades programadas.</div>
+      </div>
+    </section>
+
+    <section *ngIf="seccion==='pagos'">
+      <div class="content-card"><div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h5 mb-0">Historial de pagos</h2><strong class="text-danger">Pendiente: {{ datos.resumen.valor_pendiente | currency:'COP':'symbol-narrow':'1.0-0' }}</strong></div>
+        <div class="table-responsive"><table class="table align-middle"><thead><tr><th>Estudiante</th><th>Concepto</th><th>Fecha</th><th>Valor</th><th>Estado</th></tr></thead><tbody>
+          <tr *ngFor="let pago of datos.pagos"><td>{{ pago.jugador }}</td><td>{{ pago.concepto }}</td><td>{{ pago.fecha | date:'mediumDate' }}</td><td>{{ pago.monto | currency:'COP':'symbol-narrow':'1.0-0' }}</td><td><span class="badge" [ngClass]="'text-bg-'+estadoClase(pago.estado)">{{ pago.estado }}</span></td></tr>
+          <tr *ngIf="!datos.pagos.length"><td colspan="5" class="text-center text-muted py-4">No hay pagos registrados.</td></tr>
+        </tbody></table></div>
+      </div>
+    </section>
+
+    <section *ngIf="seccion==='avisos'">
+      <div class="content-card"><h2 class="h5 mb-3">Comunicados de la escuela</h2>
+        <div *ngFor="let aviso of datos.avisos" class="notice-row"><i class="bi bi-megaphone-fill text-success"></i><div><strong>{{ aviso.titulo }}</strong><p class="mb-1">{{ aviso.mensaje }}</p><small class="text-muted">{{ aviso.fecha | date:'medium' }}</small></div></div>
+        <div *ngIf="!datos.avisos.length" class="empty-state">No hay comunicados disponibles.</div>
+      </div>
+    </section>
+  </ng-container>
+</div>
