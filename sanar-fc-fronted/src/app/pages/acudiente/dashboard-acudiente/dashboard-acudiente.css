@@ -1,0 +1,25 @@
+.parent-dashboard { color: #212529; }
+.parent-mark { display:flex; align-items:center; gap:.55rem; padding:.65rem 1rem; border-radius:2rem; background:#e8f5ec; color:#198754; font-weight:600; }
+.parent-mark i { font-size:1.2rem; }
+.summary-card { display:flex; align-items:center; gap:1rem; height:100%; padding:1.15rem; background:#fff; border:1px solid #edf0ed; border-radius:1rem; box-shadow:0 .15rem .8rem rgba(0,0,0,.045); }
+.summary-card span { display:block; color:#6c757d; font-size:.8rem; }
+.summary-card strong { display:block; font-size:1.65rem; line-height:1.2; }
+.summary-icon { display:grid; place-items:center; width:3rem; height:3rem; flex:0 0 3rem; border-radius:.9rem; font-size:1.3rem; }
+.summary-icon.blue { background:#e8f1ff; color:#0d6efd; }
+.summary-icon.green { background:#e7f5ec; color:#198754; }
+.summary-icon.amber { background:#fff3d9; color:#b77900; }
+.summary-icon.red { background:#fdebec; color:#dc3545; }
+.dashboard-nav .btn { border-radius:.65rem; }
+.content-card { padding:1.35rem; background:#fff; border:1px solid #edf0ed; border-radius:1rem; box-shadow:0 .15rem .8rem rgba(0,0,0,.045); }
+.child-row,.activity-row,.notice-row { display:flex; align-items:center; gap:1rem; padding:.9rem 0; border-bottom:1px solid #f0f1f0; }
+.child-row:last-child,.activity-row:last-child,.notice-row:last-child { border-bottom:0; }
+.child-avatar { display:grid; place-items:center; width:2.8rem; height:2.8rem; flex:0 0 2.8rem; border-radius:50%; background:#e8f5ec; color:#198754; font-size:1.25rem; }
+.child-avatar.large { width:3.5rem; height:3.5rem; margin:auto; font-size:1.5rem; }
+.child-card { height:100%; padding:1.25rem; text-align:center; border:1px solid #edf0ed; border-radius:.9rem; }
+.activity-date { display:flex; flex-direction:column; align-items:center; justify-content:center; width:3.2rem; min-width:3.2rem; height:3.2rem; border-radius:.8rem; background:#edf7f0; color:#198754; }
+.activity-date strong { font-size:1.1rem; line-height:1.1; }
+.activity-date span { font-size:.7rem; text-transform:uppercase; }
+.notice-row { align-items:flex-start; }
+.notice-row > i { font-size:1.25rem; }
+.empty-state { padding:1.5rem; text-align:center; color:#6c757d; background:#f8f9fa; border-radius:.75rem; }
+@media (max-width:576px) { .summary-card { padding:.85rem; gap:.65rem; } .summary-icon { width:2.5rem; height:2.5rem; flex-basis:2.5rem; } .summary-card strong { font-size:1.35rem; } .content-card { padding:1rem; } }
