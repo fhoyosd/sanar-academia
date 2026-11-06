@@ -20,7 +20,9 @@ import { DetalleJugadorComponent } from './pages/profesor/detalle-jugador/detall
 import { EntrenamientosComponent } from './pages/profesor/entrenamientos/entrenamientos';
 import { DetalleEntrenamientoComponent } from './pages/profesor/detalle-entrenamiento/detalle-entrenamiento';
 import { CrearEntrenamientoComponent } from './pages/profesor/crear-entrenamiento/crear-entrenamiento';
-import { EditarUsuarioComponent } from './pages/admin/editar-usuario/editar-usuario'; // Ajusta la ruta a tu archivo
+import { EditarUsuarioComponent } from './pages/admin/editar-usuario/editar-usuario';
+import { DashboardAcudienteComponent } from './pages/acudiente/dashboard-acudiente/dashboard-acudiente';
+import { acudienteGuard } from './guards/acudiente.guard';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -39,7 +41,7 @@ export const routes: Routes = [
   { path: 'admin/pago-detalle/:id', component: PagoDetalleComponent },
   { path: 'admin/editar-usuario/:id', component: EditarUsuarioComponent },
 
-  // Rutas profesor
+  // Rutas acudiente\n  { path: 'acudiente/dashboard', component: DashboardAcudienteComponent, canActivate: [acudienteGuard] },\n\n  // Rutas profesor
   { path: 'profesor/dashboard', component: DashboardProfesorComponent },
   { path: 'profesor/crear-partido', component: CrearPartidoComponent },
   { path: 'profesor/partidos', component: PartidosComponent },
