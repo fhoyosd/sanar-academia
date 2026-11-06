@@ -5,6 +5,7 @@ from routes.auth import auth_bp
 from routes.main import main_bp
 from routes.admin import admin_bp
 from routes.profesores import profesor_bp
+from routes.acudientes import acudiente_bp
 
 def create_app():
     app = Flask(__name__)
@@ -27,6 +28,7 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(admin_bp, url_prefix='/api/admin')
     app.register_blueprint(profesor_bp, url_prefix='/api/profesor')
+    app.register_blueprint(acudiente_bp, url_prefix='/api/acudiente')
 
     @app.route('/api/ping', methods=['GET'])
     def ping():
