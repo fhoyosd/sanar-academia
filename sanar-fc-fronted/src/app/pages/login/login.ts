@@ -30,6 +30,8 @@ export class LoginComponent {
           this.router.navigate(['/admin/dashboard']);
         } else if (res.user.rol === 'profesor') {
           this.router.navigate(['/profesor/dashboard']);
+        } else if (res.user.rol === 'acudiente') {
+          this.router.navigate(['/acudiente/dashboard']);
         }
       },
       error: (err) => {
