@@ -143,3 +143,13 @@ class EstadisticaJugador(db.Model):
     jugador = db.relationship('Jugador')
     partido = db.relationship('Partido')
 
+
+
+class Aviso(db.Model):
+    """Comunicado general o dirigido a una categoría de la escuela."""
+    id = db.Column(db.Integer, primary_key=True)
+    titulo = db.Column(db.String(120), nullable=False)
+    mensaje = db.Column(db.Text, nullable=False)
+    fecha = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    categoria_id = db.Column(db.Integer, db.ForeignKey('categoria.id'), nullable=True)
+    creador_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=True)
