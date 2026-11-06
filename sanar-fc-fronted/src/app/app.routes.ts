@@ -41,7 +41,10 @@ export const routes: Routes = [
   { path: 'admin/pago-detalle/:id', component: PagoDetalleComponent },
   { path: 'admin/editar-usuario/:id', component: EditarUsuarioComponent },
 
-  // Rutas acudiente\n  { path: 'acudiente/dashboard', component: DashboardAcudienteComponent, canActivate: [acudienteGuard] },\n\n  // Rutas profesor
+  // Rutas acudiente
+  { path: 'acudiente/dashboard', component: DashboardAcudienteComponent, canActivate: [acudienteGuard] },
+
+  // Rutas profesor
   { path: 'profesor/dashboard', component: DashboardProfesorComponent },
   { path: 'profesor/crear-partido', component: CrearPartidoComponent },
   { path: 'profesor/partidos', component: PartidosComponent },
@@ -52,4 +55,5 @@ export const routes: Routes = [
   { path: 'profesor/entrenamiento-detalle/:id', component: DetalleEntrenamientoComponent },
   { path: 'profesor/crear-entrenamiento', component: CrearEntrenamientoComponent }
 
+  { path: '**', redirectTo: '' }
 ];
