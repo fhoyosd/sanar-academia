@@ -6,6 +6,7 @@ from routes.main import main_bp
 from routes.admin import admin_bp
 from routes.profesores import profesor_bp
 from routes.acudientes import acudiente_bp
+from routes.avisos import avisos_bp
 
 def create_app():
     app = Flask(__name__)
@@ -29,6 +30,7 @@ def create_app():
     app.register_blueprint(admin_bp, url_prefix='/api/admin')
     app.register_blueprint(profesor_bp, url_prefix='/api/profesor')
     app.register_blueprint(acudiente_bp, url_prefix='/api/acudiente')
+    app.register_blueprint(avisos_bp, url_prefix='/api/avisos')
 
     @app.route('/api/ping', methods=['GET'])
     def ping():
