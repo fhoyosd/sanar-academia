@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div class="d-flex align-items-center gap-2">
+    <a routerLink="/admin/dashboard" class="btn btn-outline-secondary">
+      ← Volver al menu principal
+    </a>
+    <h2 class="mb-0">Gestión de Usuarios</h2>
+  </div>
+  <a routerLink="/admin/crear-usuario" class="btn btn-primary">Nuevo Usuario</a>
+</div>
+
+<table class="table table-hover shadow-sm bg-white align-middle">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Usuario</th>
+      <th>Rol</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (u of usuarios; track u.id) {
+      <tr>
+        <td>{{ u.id }}</td>
+        <td>{{ u.nombre_completo }}</td>
+        <td>{{ u.nombre_usuario }}</td>
+        <td><span class="badge bg-secondary">{{ u.rol }}</span></td>
+        <td>
+          <a [routerLink]="['/admin/editar-usuario', u.id]" class="btn btn-sm btn-warning me-1">
+            Editar
+          </a>
+          <button (click)="eliminarUsuario(u.id)" class="btn btn-sm btn-danger">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="5" class="text-center text-muted">No hay usuarios registrados.</td>
+      </tr>
+    }
+  </tbody>
+</table>

@@ -1,0 +1,85 @@
+<section class="hero">
+  <div class="hero-lines" aria-hidden="true"></div>
+  <div class="hero-content">
+    <span class="eyebrow"><i class="bi bi-stars"></i> Inscripciones abiertas {{ anio }}</span>
+    <h1>Formamos <span class="hl">talento</span>,<br> disciplina y pasión por el fútbol.</h1>
+    <p>Sanar F.C. es la escuela de fútbol que acompaña a niños y jóvenes de 5 a 18 años dentro y fuera de la cancha.</p>
+    <div class="d-flex flex-wrap gap-2 mt-4">
+      @if (auth.isLoggedIn()) {
+        <a [routerLink]="auth.rutaInicio()" class="btn btn-lime btn-lg">
+          <i class="bi bi-speedometer2 me-1"></i> Ir a mi panel
+        </a>
+      } @else {
+        <a routerLink="/login" class="btn btn-lime btn-lg"><i class="bi bi-box-arrow-in-right me-1"></i> Acceso usuarios</a>
+        <a routerLink="/registro" class="btn btn-ghost-light btn-lg">Soy acudiente nuevo</a>
+      }
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div><strong>12+</strong><span>años formando</span></div>
+    <div><strong>5</strong><span>canchas</span></div>
+    <div><strong>8</strong><span>categorías</span></div>
+  </div>
+</section>
+
+<section class="features">
+  @for (f of features; track f.titulo) {
+    <article class="feature">
+      <span class="stat-icon {{ f.tono }}"><i class="bi {{ f.icono }}"></i></span>
+      <h3>{{ f.titulo }}</h3>
+      <p>{{ f.texto }}</p>
+    </article>
+  }
+</section>
+
+<section class="roles">
+  <div class="text-center mb-4">
+    <span class="eyebrow">Una plataforma, tres perfiles</span>
+    <h2 class="mt-1">Cada quien ve lo que necesita</h2>
+  </div>
+  <div class="row g-3">
+    @for (r of roles; track r.titulo) {
+      <div class="col-md-4">
+        <div class="role-card">
+          <div class="role-icon"><i class="bi {{ r.icono }}"></i></div>
+          <h3>{{ r.titulo }}</h3>
+          <ul>
+            @for (item of r.items; track item) { <li><i class="bi bi-check2"></i> {{ item }}</li> }
+          </ul>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="row g-3 align-items-stretch">
+  <div class="col-lg-6">
+    <div class="info-card h-100">
+      <span class="eyebrow"><i class="bi bi-geo-alt"></i> Nuestra sede</span>
+      <h2 class="h3 mt-1">Kr 14P #72-03, Bogotá</h2>
+      <p class="text-muted mb-3">Ven a conocernos y a entrenar con nosotros.</p>
+      <div class="map-frame">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4729.968098383068!2d-74.12334309036375!3d4.5193276849595705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3fa3fa594521dd%3A0x42adb5bc31c31245!2sSanar%20Academia%20FC!5e0!3m2!1ses-419!2sco!4v1794512308079!5m2!1ses-419!2sco"
+          title="Ubicación de Sanar Academia FC en Google Maps"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <a class="btn btn-outline-success btn-sm mt-3" target="_blank" rel="noopener"
+         href="https://www.google.com/maps/search/?api=1&query=Sanar+Academia+FC+Kr+14P+72-03+Bogota">
+        <i class="bi bi-signpost-split me-1"></i> Cómo llegar
+      </a>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="cta-card h-100">
+      <h2 class="h3">Únete a la familia Sanar</h2>
+      <p>Ven a una clase de cortesía y conoce a nuestro cuerpo técnico.</p>
+      <div class="d-flex flex-wrap gap-3 small">
+        <span><i class="bi bi-telephone me-1"></i> (601) 555-0199</span>
+        <span><i class="bi bi-envelope me-1"></i> contacto&#64;sanarfc.edu.co</span>
+      </div>
+    </div>
+  </div>
+</section>

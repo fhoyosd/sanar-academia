@@ -1,0 +1,75 @@
+<div class="page-head">
+  <div>
+    <span class="eyebrow"><i class="bi bi-shield-lock"></i> Panel de administración</span>
+    <h1>{{ saludo() }}, {{ auth.nombre() }}</h1>
+    <p>Este es el resumen de la escuela hoy.</p>
+  </div>
+  <div class="d-flex gap-2">
+    <a routerLink="/admin/avisos" class="btn btn-outline-secondary"><i class="bi bi-megaphone me-1"></i> Publicar aviso</a>
+    <a routerLink="/admin/pagos/nuevo" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i> Registrar pago</a>
+  </div>
+</div>
+
+@if (error()) { <div class="alert alert-danger">{{ error() }}</div> }
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-xl-3">
+    <div class="stat-card"><span class="stat-icon tone-green"><i class="bi bi-person-badge"></i></span>
+      <div><div class="stat-label">Estudiantes</div><div class="stat-value">{{ conteo()?.jugadores ?? '–' }}</div></div></div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <div class="stat-card"><span class="stat-icon tone-blue"><i class="bi bi-stopwatch"></i></span>
+      <div><div class="stat-label">Entrenadores</div><div class="stat-value">{{ conteo()?.profesores ?? '–' }}</div></div></div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <div class="stat-card"><span class="stat-icon tone-violet"><i class="bi bi-diagram-3"></i></span>
+      <div><div class="stat-label">Categorías</div><div class="stat-value">{{ conteo()?.categorias ?? '–' }}</div></div></div>
+  </div>
+  <div class="col-6 col-xl-3">
+    <div class="stat-card"><span class="stat-icon tone-amber"><i class="bi bi-hourglass-split"></i></span>
+      <div><div class="stat-label">Pagos pendientes</div><div class="stat-value">{{ conteo()?.pagos_pendientes ?? '–' }}</div></div></div>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-8">
+    <h2 class="h5 mb-3">Accesos rápidos</h2>
+    <div class="row g-3">
+      @for (a of accesos; track a.ruta) {
+        <div class="col-sm-6 col-xl-4">
+          <a class="action-tile" [routerLink]="a.ruta">
+            <span class="stat-icon {{ a.tono }}"><i class="bi {{ a.icono }}"></i></span>
+            <h3>{{ a.titulo }}</h3>
+            <p>{{ a.texto }}</p>
+            <span class="go">Abrir <i class="bi bi-arrow-right"></i></span>
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <h2 class="h5 mb-3">Finanzas</h2>
+    <div class="money-card mb-3">
+      <span>Recaudado</span>
+      <strong>{{ (conteo()?.recaudado ?? 0) | currency:'COP':'symbol-narrow':'1.0-0' }}</strong>
+      <small><i class="bi bi-check-circle"></i> Pagos con estado «Pagado»</small>
+    </div>
+    <div class="panel">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <div class="stat-label text-muted small">Por cobrar</div>
+          <div class="fs-4 fw-bold text-danger">{{ (conteo()?.valor_pendiente ?? 0) | currency:'COP':'symbol-narrow':'1.0-0' }}</div>
+        </div>
+        <span class="stat-icon tone-red rounded-3 p-3"><i class="bi bi-exclamation-triangle"></i></span>
+      </div>
+      <hr>
+      <ul class="list-unstyled small mb-0 d-grid gap-2">
+        <li class="d-flex justify-content-between"><span class="text-muted">Usuarios registrados</span><strong>{{ conteo()?.usuarios ?? '–' }}</strong></li>
+        <li class="d-flex justify-content-between"><span class="text-muted">Acudientes</span><strong>{{ conteo()?.acudientes ?? '–' }}</strong></li>
+        <li class="d-flex justify-content-between"><span class="text-muted">Eventos programados</span><strong>{{ conteo()?.eventos ?? '–' }}</strong></li>
+        <li class="d-flex justify-content-between"><span class="text-muted">Avisos publicados</span><strong>{{ conteo()?.avisos ?? '–' }}</strong></li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="page-head">
+  <div>
+    <span class="eyebrow"><i class="bi" [class.bi-megaphone]="esAdmin()" [class.bi-bell]="!esAdmin()"></i>
+      {{ esAdmin() ? 'Comunicación institucional' : 'Comunicación con familias' }}</span>
+    <h1>{{ esAdmin() ? 'Avisos institucionales' : 'Notificaciones a mis grupos' }}</h1>
+    <p>{{ esAdmin()
+      ? 'Publica información para toda la escuela o para una categoría específica.'
+      : 'Informa cambios de último momento a los acudientes de tus categorías.' }}</p>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-5">
+    <div class="panel composer">
+      <h2 class="h5 mb-3"><i class="bi bi-pencil-square text-success me-1"></i> Nuevo {{ esAdmin() ? 'aviso' : 'mensaje' }}</h2>
+
+      @if (exito()) { <div class="alert alert-success py-2"><i class="bi bi-check-circle me-1"></i>{{ exito() }}</div> }
+      @if (error()) { <div class="alert alert-danger py-2"><i class="bi bi-exclamation-circle me-1"></i>{{ error() }}</div> }
+
+      <form (ngSubmit)="publicar()">
+        <div class="mb-3">
+          <label class="form-label">Dirigido a</label>
+          <select class="form-select" name="categoria" [(ngModel)]="form.categoria_id">
+            @if (esAdmin()) { <option value="">Toda la escuela</option> }
+            @for (c of categorias(); track c.id) { <option [value]="c.id">{{ c.nombre }}</option> }
+          </select>
+          @if (!esAdmin() && !categorias().length) {
+            <small class="text-danger">Aún no tienes categorías asignadas.</small>
+          }
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Título</label>
+          <input class="form-control" name="titulo" maxlength="120" [(ngModel)]="form.titulo"
+                 [placeholder]="esAdmin() ? 'Ej: Inicio de inscripciones 2027' : 'Ej: Cambio de horario del entrenamiento'">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Mensaje</label>
+          <textarea class="form-control" name="mensaje" rows="5" [(ngModel)]="form.mensaje"
+                    placeholder="Escribe el contenido del comunicado..."></textarea>
+        </div>
+        <button class="btn btn-primary w-100" type="submit" [disabled]="enviando()">
+          <i class="bi bi-send me-1"></i> {{ enviando() ? 'Enviando...' : (esAdmin() ? 'Publicar aviso' : 'Enviar notificación') }}
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-lg-7">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="h5 mb-0">Publicados</h2>
+      <span class="badge bg-secondary">{{ avisos().length }}</span>
+    </div>
+
+    @if (cargando()) {
+      <div class="text-center py-5"><div class="spinner-border"></div></div>
+    } @else {
+      <div class="feed">
+        @for (a of avisos(); track a.id) {
+          <article class="feed-item">
+            <div class="feed-icon" [class.general]="!a.categoria_id"><i class="bi" [class.bi-megaphone-fill]="!a.categoria_id" [class.bi-people-fill]="a.categoria_id"></i></div>
+            <div class="flex-grow-1 min-w-0">
+              <div class="d-flex justify-content-between gap-2">
+                <h3>{{ a.titulo }}</h3>
+                @if (puedeEliminar(a)) {
+                  <button class="btn btn-sm btn-link text-danger p-0" (click)="eliminar(a)" title="Eliminar"><i class="bi bi-trash"></i></button>
+                }
+              </div>
+              <p>{{ a.mensaje }}</p>
+              <div class="meta">
+                <span class="tag">{{ a.categoria }}</span>
+                <span><i class="bi bi-person"></i> {{ a.creador }}</span>
+                <span><i class="bi bi-clock"></i> {{ a.fecha | date:'d MMM y, h:mm a' }}</span>
+              </div>
+            </div>
+          </article>
+        } @empty {
+          <div class="empty-box"><i class="bi bi-inbox"></i>Todavía no hay publicaciones.</div>
+        }
+      </div>
+    }
+  </div>
+</div>

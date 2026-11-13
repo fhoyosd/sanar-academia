@@ -1,0 +1,39 @@
+:host { display: block; }
+.auth-shell {
+  display: grid; grid-template-columns: 1.05fr 1fr; min-height: 560px; max-width: 1040px; margin: 0 auto;
+  background: #fff; border-radius: 26px; overflow: hidden; box-shadow: var(--sf-shadow-lg); border: 1px solid var(--sf-border);
+}
+.auth-hero {
+  position: relative; overflow: hidden; color: #fff; padding: 3rem 2.75rem; display: flex; align-items: flex-end;
+  background:
+    linear-gradient(180deg, rgba(5,46,34,.55) 0%, rgba(5,46,34,.94) 75%),
+    url("https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=1100&q=70") center/cover,
+    var(--sf-green-900);
+}
+.hero-pattern {
+  position: absolute; inset: 0; opacity: .1;
+  background-image: repeating-linear-gradient(90deg, #fff 0 2px, transparent 2px 90px);
+}
+.auth-hero h1 { color: #fff; font-size: clamp(1.7rem, 3vw, 2.3rem); margin: .6rem 0 .75rem; }
+.auth-hero p { color: rgba(255,255,255,.8); }
+.text-lime { color: var(--sf-lime) !important; }
+.hero-list { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: .55rem; }
+.hero-list li { display: flex; gap: .55rem; align-items: center; color: rgba(255,255,255,.92); font-size: .93rem; }
+.hero-list i { color: var(--sf-lime); }
+
+.auth-form { display: flex; align-items: center; justify-content: center; padding: 3rem 2.5rem; }
+.form-wrap { width: 100%; max-width: 380px; }
+.form-wrap h2 { font-size: 1.9rem; margin-bottom: .35rem; }
+
+.input-icon { position: relative; }
+.input-icon > i { position: absolute; left: .95rem; top: 50%; transform: translateY(-50%); color: #94a3b8; z-index: 2; }
+.input-icon .form-control { padding-left: 2.6rem; padding-right: 2.6rem; height: 48px; }
+.toggle-pass { position: absolute; right: .5rem; top: 50%; transform: translateY(-50%); border: 0; background: none; color: #94a3b8; padding: .35rem .5rem; }
+.toggle-pass:hover { color: var(--sf-green-700); }
+
+@media (max-width: 860px) {
+  .auth-shell { grid-template-columns: 1fr; }
+  .auth-hero { padding: 2rem 1.5rem; min-height: 220px; }
+  .hero-list { display: none; }
+  .auth-form { padding: 2rem 1.25rem; }
+}

@@ -1,0 +1,76 @@
+<header class="topbar">
+  <nav class="container topbar-inner">
+    <a class="brand" [routerLink]="auth.isLoggedIn() ? auth.rutaInicio() : '/'">
+      <span class="brand-crest"><img src="assets/escudo-sanar-fc.jpeg" alt="Escudo Sanar Academia F.C."></span>
+      <span class="brand-text">
+        <strong>Sanar</strong> <span>F.C.</span>
+        <small>Escuela de fútbol</small>
+      </span>
+    </a>
+
+    <button class="menu-toggle" type="button" (click)="menuAbierto.set(!menuAbierto())"
+            [attr.aria-expanded]="menuAbierto()" aria-label="Abrir menú">
+      <i class="bi" [class.bi-list]="!menuAbierto()" [class.bi-x-lg]="menuAbierto()"></i>
+    </button>
+
+    <div class="nav-area" [class.open]="menuAbierto()">
+      @if (auth.isLoggedIn()) {
+        <ul class="nav-links">
+          @for (link of enlaces(); track link.ruta) {
+            <li>
+              <a [routerLink]="link.ruta" routerLinkActive="active">
+                <i class="bi {{ link.icono }}"></i>{{ link.texto }}
+              </a>
+            </li>
+          }
+        </ul>
+
+        <div class="user-box">
+          <button class="user-chip" type="button" (click)="perfilAbierto.set(!perfilAbierto())">
+            <span class="avatar">{{ auth.iniciales() || 'U' }}</span>
+            <span class="user-meta">
+              <strong>{{ auth.nombre() }}</strong>
+              <small>{{ rolTexto() }}</small>
+            </span>
+            <i class="bi bi-chevron-down small"></i>
+          </button>
+          @if (perfilAbierto()) {
+            <div class="user-menu">
+              <div class="user-menu-head">
+                <span class="avatar lg">{{ auth.iniciales() || 'U' }}</span>
+                <div>
+                  <strong>{{ auth.nombre() }}</strong>
+                  <small>{{ auth.usuario()?.username }}</small>
+                  <span class="role-pill">{{ rolTexto() }}</span>
+                </div>
+              </div>
+              <a [routerLink]="auth.rutaInicio()"><i class="bi bi-speedometer2"></i> Ir a mi panel</a>
+              <button type="button" class="logout" (click)="logout()">
+                <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+              </button>
+            </div>
+          }
+        </div>
+      } @else {
+        <ul class="nav-links">
+          <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><i class="bi bi-house"></i>Inicio</a></li>
+          <li><a routerLink="/registro" routerLinkActive="active"><i class="bi bi-person-plus"></i>Registrarme</a></li>
+        </ul>
+        <a routerLink="/login" class="btn btn-lime btn-sm px-3">
+          <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar sesión
+        </a>
+      }
+    </div>
+  </nav>
+</header>
+
+<main class="page container">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="site-footer">
+  <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+    <span><i class="bi bi-shield-fill-check me-1"></i> Sanar F.C. · Escuela de fútbol · {{ anio }}</span>
+    <span class="text-white-50 small">Práctica de Ingeniería III · Universidad Central</span>
+  </div>
+</footer>

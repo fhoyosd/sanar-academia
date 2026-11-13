@@ -1,0 +1,66 @@
+<div class="page-head">
+  <div>
+    <a routerLink="/admin/pagos" class="eyebrow text-decoration-none"><i class="bi bi-arrow-left"></i> Control de pagos</a>
+    <h1>{{ jugador().nombre || 'Jugador' }}</h1>
+    <p>Historial de cobros y saldo pendiente.</p>
+  </div>
+  <div class="stat-card py-2" style="height:auto">
+    <span class="stat-icon tone-red"><i class="bi bi-wallet2"></i></span>
+    <div><div class="stat-label">Saldo pendiente</div><div class="stat-value fs-4">{{ saldo() | currency:'COP':'symbol-narrow':'1.0-0' }}</div></div>
+  </div>
+</div>
+
+@if (mensajeExito()) { <div class="alert alert-success py-2">{{ mensajeExito() }}</div> }
+@if (mensajeError()) { <div class="alert alert-danger py-2">{{ mensajeError() }}</div> }
+
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header">Historial de pagos</div>
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead><tr><th>Concepto</th><th>Fecha</th><th class="text-end">Monto</th><th>Estado</th></tr></thead>
+          <tbody>
+            @for (pago of historial(); track pago.id) {
+              <tr>
+                <td class="fw-semibold">{{ pago.mes }}</td>
+                <td class="text-muted">{{ pago.fecha_pago | date:'d MMM y' }}</td>
+                <td class="text-end">{{ pago.monto | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
+                <td>
+                  <select class="estado-select status status-{{ pago.estado.toLowerCase() }}" #s (change)="cambiarEstado(pago, s.value)">
+                    @for (e of estados; track e) { <option [value]="e" [selected]="e === pago.estado">{{ e }}</option> }
+                  </select>
+                </td>
+              </tr>
+            } @empty {
+              <tr><td colspan="4"><div class="empty-box my-2"><i class="bi bi-receipt"></i>No hay registros de pago para este jugador.</div></td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="panel">
+      <h2 class="h6 mb-3"><i class="bi bi-plus-circle text-success me-1"></i> Nuevo cobro</h2>
+      <form (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label class="form-label">Concepto</label>
+          <input class="form-control" name="mes" [(ngModel)]="nuevoPago.mes">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Monto ($)</label>
+          <input class="form-control" type="number" min="1" name="monto" [(ngModel)]="nuevoPago.monto">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Estado</label>
+          <select class="form-select" name="estado" [(ngModel)]="nuevoPago.estado">
+            @for (e of estados; track e) { <option [value]="e">{{ e }}</option> }
+          </select>
+        </div>
+        <button class="btn btn-primary w-100" type="submit">Registrar cobro</button>
+      </form>
+    </div>
+  </div>
+</div>

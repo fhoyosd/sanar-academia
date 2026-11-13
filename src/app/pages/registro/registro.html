@@ -1,0 +1,58 @@
+<div class="auth-shell">
+  <aside class="auth-hero">
+    <div class="hero-pattern" aria-hidden="true"></div>
+    <div class="position-relative">
+      <span class="eyebrow text-lime"><i class="bi bi-people-fill"></i> Familia Sanar</span>
+      <h1>Crea tu cuenta de acudiente</h1>
+      <p>Sigue la asistencia, las convocatorias, los reportes de desempeño y los pagos de tus hijos.</p>
+      <ul class="hero-list">
+        <li><i class="bi bi-check2-circle"></i> Registro gratuito en un minuto</li>
+        <li><i class="bi bi-check2-circle"></i> La escuela vinculará a tus hijos a tu cuenta</li>
+        <li><i class="bi bi-check2-circle"></i> Avisos y notificaciones al instante</li>
+      </ul>
+    </div>
+  </aside>
+
+  <section class="auth-form">
+    <div class="form-wrap">
+      <h2>Registrarme</h2>
+      <p class="text-muted mb-4">Ingresa tus datos para crear tu cuenta.</p>
+
+      @if (error()) {
+        <div class="alert alert-danger d-flex gap-2 align-items-center py-2">
+          <i class="bi bi-exclamation-circle"></i> {{ error() }}
+        </div>
+      }
+
+      <form (ngSubmit)="registrar()" novalidate>
+        <div class="mb-3">
+          <label class="form-label" for="nombre">Nombre completo</label>
+          <div class="input-icon"><i class="bi bi-person-vcard"></i>
+            <input id="nombre" name="nombre" class="form-control" [(ngModel)]="datos.nombre" placeholder="Ej: María Gómez" required>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="correo">Correo electrónico</label>
+          <div class="input-icon"><i class="bi bi-envelope"></i>
+            <input id="correo" type="email" name="username" class="form-control" [(ngModel)]="datos.username" placeholder="tucorreo@ejemplo.com" autocomplete="email" required>
+          </div>
+        </div>
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6">
+            <label class="form-label" for="pass">Contraseña</label>
+            <input id="pass" type="password" name="password" class="form-control" [(ngModel)]="datos.password" placeholder="Mín. 6 caracteres" autocomplete="new-password" required>
+          </div>
+          <div class="col-sm-6">
+            <label class="form-label" for="pass2">Confirmar</label>
+            <input id="pass2" type="password" name="confirmar" class="form-control" [(ngModel)]="datos.confirmar" placeholder="Repite la contraseña" autocomplete="new-password" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg w-100" [disabled]="cargando()">
+          {{ cargando() ? 'Creando cuenta...' : 'Crear cuenta' }}
+        </button>
+      </form>
+
+      <p class="text-center mt-4 mb-0 small">¿Ya tienes cuenta? <a routerLink="/login" class="fw-semibold">Inicia sesión</a></p>
+    </div>
+  </section>
+</div>
