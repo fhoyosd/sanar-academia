@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/admin/dashboard/dashboard.css"],
+  "sourcesContent": [".money-card {\n  display: flex; flex-direction: column; gap: .2rem;\n  padding: 1.5rem; border-radius: var(--sf-radius); color: #fff;\n  background:\n    radial-gradient(260px 140px at 100% 0%, rgba(190,242,100,.35), transparent 70%),\n    linear-gradient(135deg, var(--sf-green-700), var(--sf-green-950));\n  box-shadow: var(--sf-shadow-lg);\n}\n.money-card span { font-size: .82rem; color: rgba(255,255,255,.75); text-transform: uppercase; letter-spacing: .08em; }\n.money-card strong { font-family: var(--sf-font-display); font-size: 2rem; }\n.money-card small { color: var(--sf-lime); }\n.stat-icon { display: grid; place-items: center; }\n"],
+  "mappings": ";AAAA,CAAC;AACC,WAAS;AAAM,kBAAgB;AAAQ,OAAK;AAC5C,WAAS;AAAQ,iBAAe,IAAI;AAAc,SAAO;AACzD;AAAA,IACE;AAAA,MAAgB,MAAM,MAAM,GAAG,KAAK,EAAE;AAAA,MAAE,KAAK,GAAG,EAAC,GAAG,EAAC,GAAG,EAAC,IAAI;AAAA,MAAE,YAAY,IAAI;AAAA,IAC/E;AAAA,MAAgB,MAAM;AAAA,MAAE,IAAI,eAAe;AAAA,MAAE,IAAI;AACnD,cAAY,IAAI;AAClB;AACA,CARC,WAQW;AAAO,aAAW;AAAQ,SAAO,KAAK,GAAG,EAAC,GAAG,EAAC,GAAG,EAAC;AAAM,kBAAgB;AAAW,kBAAgB;AAAO;AACtH,CATC,WASW;AAAS,eAAa,IAAI;AAAoB,aAAW;AAAM;AAC3E,CAVC,WAUW;AAAQ,SAAO,IAAI;AAAY;AAC3C,CAAC;AAAY,WAAS;AAAM,eAAa;AAAQ;",
+  "names": []
+}
