@@ -1,0 +1,82 @@
+:host { display: flex; flex-direction: column; min-height: 100vh; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 1030;
+  background: linear-gradient(100deg, var(--sf-green-950) 0%, var(--sf-green-800) 100%);
+  box-shadow: 0 6px 24px rgba(4, 30, 22, .25);
+}
+.topbar-inner { display: flex; align-items: center; gap: 1.25rem; min-height: 68px; }
+
+.brand { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: #fff; flex-shrink: 0; }
+.brand-crest { display: grid; place-items: center; filter: drop-shadow(0 3px 6px rgba(0,0,0,.35)); }
+.brand-text { line-height: 1.05; font-family: var(--sf-font-display); font-size: 1.3rem; letter-spacing: .3px; }
+.brand-text strong { font-weight: 800; }
+.brand-text > span { color: var(--sf-lime); font-weight: 700; }
+.brand-text small { display: block; font-family: var(--sf-font); font-size: .68rem; color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: 1.6px; }
+
+.nav-area { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 1rem; }
+.nav-links { display: flex; gap: .25rem; list-style: none; margin: 0 auto 0 1rem; padding: 0; }
+.nav-links a {
+  display: flex; align-items: center; gap: .45rem;
+  padding: .5rem .75rem; border-radius: 999px; white-space: nowrap;
+  color: rgba(255,255,255,.78); text-decoration: none; font-weight: 500; font-size: .92rem;
+  transition: background .2s, color .2s;
+}
+.nav-links a:hover { color: #fff; background: rgba(255,255,255,.08); }
+.nav-links a.active { color: var(--sf-green-950); background: var(--sf-lime); font-weight: 600; }
+
+.user-box { position: relative; }
+.user-chip {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .3rem .75rem .3rem .3rem; border-radius: 999px;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); color: #fff;
+  transition: background .2s;
+}
+.user-chip:hover { background: rgba(255,255,255,.15); }
+.user-meta { display: flex; flex-direction: column; text-align: left; line-height: 1.15; }
+.user-meta strong { font-size: .85rem; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-meta small { font-size: .7rem; color: var(--sf-lime); }
+
+.avatar {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--sf-lime), #4ade80); color: var(--sf-green-950);
+  font-weight: 800; font-size: .8rem;
+}
+.avatar.lg { width: 46px; height: 46px; font-size: 1rem; }
+
+.user-menu {
+  position: absolute; right: 0; top: calc(100% + 10px); width: 260px;
+  background: #fff; border-radius: 16px; padding: .5rem;
+  box-shadow: 0 18px 50px rgba(4, 30, 22, .25); animation: pop .15s ease-out;
+}
+.user-menu-head { display: flex; gap: .75rem; align-items: center; padding: .75rem; border-bottom: 1px solid var(--sf-border); margin-bottom: .35rem; }
+.user-menu-head strong { display: block; font-size: .92rem; }
+.user-menu-head small { display: block; color: var(--sf-muted); font-size: .78rem; }
+.role-pill { display: inline-block; margin-top: .25rem; padding: .1rem .55rem; border-radius: 999px; background: var(--sf-green-50); color: var(--sf-green-700); font-size: .7rem; font-weight: 700; }
+.user-menu a, .user-menu button {
+  display: flex; align-items: center; gap: .6rem; width: 100%;
+  padding: .6rem .75rem; border-radius: 10px; border: 0; background: none;
+  color: var(--sf-ink); text-decoration: none; font-size: .9rem; text-align: left;
+}
+.user-menu a:hover, .user-menu button:hover { background: var(--sf-surface-2); }
+.user-menu .logout { color: #dc2626; }
+
+.menu-toggle { display: none; margin-left: auto; background: none; border: 0; color: #fff; font-size: 1.6rem; }
+
+.page { flex: 1; padding-top: 2rem; padding-bottom: 3rem; }
+
+.site-footer { background: var(--sf-green-950); color: rgba(255,255,255,.85); padding: 1.1rem 0; font-size: .88rem; }
+
+@keyframes pop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 1199.98px) {
+  .menu-toggle { display: block; }
+  .topbar-inner { flex-wrap: wrap; }
+  .nav-area { display: none; flex-basis: 100%; flex-direction: column; align-items: stretch; padding-bottom: 1rem; }
+  .nav-area.open { display: flex; }
+  .nav-links { flex-direction: column; margin: 0; }
+  .user-menu { position: static; width: 100%; margin-top: .5rem; }
+  .user-chip { width: 100%; }
+}
+
+.brand-crest img{width:48px;height:54px;object-fit:contain;border-radius:6px;background:#fff;}

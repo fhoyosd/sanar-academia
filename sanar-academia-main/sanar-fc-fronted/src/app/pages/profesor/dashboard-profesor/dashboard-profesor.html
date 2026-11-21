@@ -1,0 +1,68 @@
+<div class="page-head">
+  <div>
+    <span class="eyebrow"><i class="bi bi-stopwatch"></i> Panel del entrenador</span>
+    <h1>¡A la cancha, profe!</h1>
+    <p>Gestiona convocatorias, entrenamientos y el seguimiento de tus jugadores.</p>
+  </div>
+  <div class="d-flex gap-2">
+    <a routerLink="/profesor/crear-entrenamiento" class="btn btn-outline-secondary"><i class="bi bi-calendar-plus me-1"></i> Entrenamiento</a>
+    <a routerLink="/profesor/crear-partido" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i> Programar partido</a>
+  </div>
+</div>
+
+<div *ngIf="mensajeError" class="alert alert-danger mb-4">{{ mensajeError }}</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-lg-3">
+    <div class="stat-card"><span class="stat-icon tone-green"><i class="bi bi-people"></i></span>
+      <div><div class="stat-label">Jugadores a cargo</div><div class="stat-value">{{ cargando ? '–' : jugadores.length }}</div></div></div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="stat-card"><span class="stat-icon tone-violet"><i class="bi bi-diagram-3"></i></span>
+      <div><div class="stat-label">Mis categorías</div><div class="stat-value">{{ cargando ? '–' : categorias.length }}</div></div></div>
+  </div>
+  <div class="col-lg-6">
+    <div class="stat-card">
+      <span class="stat-icon tone-blue"><i class="bi bi-tags"></i></span>
+      <div class="d-flex flex-wrap gap-2">
+        @for (c of categorias; track c.id) { <span class="badge bg-secondary">{{ c.nombre }}</span> }
+        @empty { <span class="text-muted small">Aún no tienes categorías asignadas por el administrador.</span> }
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-sm-6 col-xl-3">
+    <a class="action-tile" routerLink="/profesor/jugadores">
+      <span class="stat-icon tone-green"><i class="bi bi-people-fill"></i></span>
+      <h3>Jugadores</h3>
+      <p>Consulta fichas, registra observaciones y evaluaciones de desempeño.</p>
+      <span class="go">Ver jugadores <i class="bi bi-arrow-right"></i></span>
+    </a>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <a class="action-tile" routerLink="/profesor/entrenamientos">
+      <span class="stat-icon tone-blue"><i class="bi bi-calendar-check-fill"></i></span>
+      <h3>Entrenamientos</h3>
+      <p>Planifica sesiones con fecha, hora y lugar, y toma asistencia.</p>
+      <span class="go">Ver entrenamientos <i class="bi bi-arrow-right"></i></span>
+    </a>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <a class="action-tile" routerLink="/profesor/partidos">
+      <span class="stat-icon tone-amber"><i class="bi bi-trophy-fill"></i></span>
+      <h3>Partidos</h3>
+      <p>Programa partidos, elige convocados y carga estadísticas.</p>
+      <span class="go">Ver partidos <i class="bi bi-arrow-right"></i></span>
+    </a>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <a class="action-tile" routerLink="/profesor/avisos">
+      <span class="stat-icon tone-red"><i class="bi bi-bell-fill"></i></span>
+      <h3>Notificaciones</h3>
+      <p>Avisa a las familias de un grupo sobre cambios de último momento.</p>
+      <span class="go">Enviar aviso <i class="bi bi-arrow-right"></i></span>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+.money-card {
+  display: flex; flex-direction: column; gap: .2rem;
+  padding: 1.5rem; border-radius: var(--sf-radius); color: #fff;
+  background:
+    radial-gradient(260px 140px at 100% 0%, rgba(190,242,100,.35), transparent 70%),
+    linear-gradient(135deg, var(--sf-green-700), var(--sf-green-950));
+  box-shadow: var(--sf-shadow-lg);
+}
+.money-card span { font-size: .82rem; color: rgba(255,255,255,.75); text-transform: uppercase; letter-spacing: .08em; }
+.money-card strong { font-family: var(--sf-font-display); font-size: 2rem; }
+.money-card small { color: var(--sf-lime); }
+.stat-icon { display: grid; place-items: center; }

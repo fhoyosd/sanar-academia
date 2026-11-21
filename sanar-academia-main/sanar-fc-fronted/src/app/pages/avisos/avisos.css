@@ -1,0 +1,17 @@
+.composer { position: sticky; top: 90px; }
+.feed { display: grid; gap: .85rem; }
+.feed-item {
+  display: flex; gap: 1rem; padding: 1.1rem 1.2rem;
+  background: #fff; border: 1px solid var(--sf-border); border-radius: 16px; box-shadow: var(--sf-shadow);
+}
+.feed-icon {
+  display: grid; place-items: center; width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 12px; background: #eff6ff; color: #2563eb;
+}
+.feed-icon.general { background: var(--sf-green-50); color: var(--sf-green-700); }
+.feed-item h3 { font-size: 1rem; margin: 0 0 .25rem; }
+.feed-item p { margin: 0 0 .6rem; color: #334155; font-size: .92rem; white-space: pre-line; }
+.meta { display: flex; flex-wrap: wrap; gap: .85rem; font-size: .78rem; color: var(--sf-muted); align-items: center; }
+.tag { padding: .15rem .55rem; border-radius: 999px; background: var(--sf-surface-2); color: var(--sf-green-800); font-weight: 600; }
+.min-w-0 { min-width: 0; }
+@media (max-width: 991.98px) { .composer { position: static; } }

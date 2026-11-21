@@ -1,0 +1,45 @@
+<div class="page-head">
+  <div>
+    <span class="eyebrow"><i class="bi bi-diagram-3"></i> Estructura deportiva</span>
+    <h1>Categorías y entrenadores</h1>
+    <p>Organiza el cuerpo técnico asignando un entrenador a cada grupo.</p>
+  </div>
+  <a routerLink="/admin/crear-categoria" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i> Nueva categoría</a>
+</div>
+
+@if (mensaje()) { <div class="alert alert-success py-2"><i class="bi bi-check-circle me-1"></i>{{ mensaje() }}</div> }
+@if (error()) { <div class="alert alert-danger py-2">{{ error() }}</div> }
+
+@if (cargando()) {
+  <div class="text-center py-5"><div class="spinner-border"></div></div>
+} @else {
+  <div class="row g-3">
+    @for (c of categorias(); track c.id) {
+      <div class="col-md-6 col-xl-4">
+        <div class="panel h-100 d-flex flex-column gap-3">
+          <div class="d-flex justify-content-between align-items-start">
+            <div class="d-flex gap-3 align-items-center">
+              <span class="stat-icon tone-violet d-grid rounded-3" style="width:46px;height:46px;place-items:center"><i class="bi bi-trophy"></i></span>
+              <div>
+                <h2 class="h5 mb-0">{{ c.nombre }}</h2>
+                <small class="text-muted">{{ c.jugadores }} {{ c.jugadores === 1 ? 'jugador' : 'jugadores' }}</small>
+              </div>
+            </div>
+            <button class="btn btn-sm btn-link text-danger p-0" (click)="eliminar(c)" title="Eliminar"><i class="bi bi-trash"></i></button>
+          </div>
+          <div class="mt-auto">
+            <label class="form-label">Entrenador asignado</label>
+            <select class="form-select" [value]="c.profesor_id ?? ''" #sel (change)="asignar(c, sel.value)">
+              <option value="">Sin entrenador</option>
+              @for (p of profesores(); track p.id) {
+                <option [value]="p.id" [selected]="p.id === c.profesor_id">{{ p.nombre_completo }}</option>
+              }
+            </select>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="col-12"><div class="empty-box"><i class="bi bi-diagram-3"></i>No hay categorías creadas.</div></div>
+    }
+  </div>
+}
